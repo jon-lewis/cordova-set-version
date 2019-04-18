@@ -16,11 +16,12 @@ const DefaultConfigPath = './config.xml';
  * @param {number} [buildNumber]
  */
 async function cordovaSetVersion(...args) {
-    let [configPath, version, buildNumber] = parseArguments(...args);
+    let [configPath, version, buildNumber, windowsVersion] = parseArguments(...args);
 
     configPath = configPath || DefaultConfigPath;
     version = version || null;
     buildNumber = buildNumber || null;
+    windowsVersion = windowsVersion || null;
 
     checkTypeErrors(configPath, version, buildNumber);
 
@@ -30,7 +31,7 @@ async function cordovaSetVersion(...args) {
         version = await getVersionFromPackage(version);
     }
 
-    xml = setAttributes(xml, version, buildNumber);
+    xml = setAttributes(xml, version, buildNumber, windowsVersion);
 
     const newData = xmlBuilder.buildObject(xml);
     return writeFile(configPath, newData, { encoding: 'UTF-8' });
@@ -109,11 +110,15 @@ async function getVersionFromPackage() {
     return version;
 }
 
-function setAttributes(xml, version, buildNumber) {
+function setAttributes(xml, version, buildNumber, windowsVersion) {
     const newXml = xml;
 
     if (version) {
         newXml.widget.$.version = version;
+    }
+
+    if (windowsVersion) {
+        newXml.widget.$['windows-packageVersion'] = windowsVersion;
     }
 
     if (buildNumber) {
