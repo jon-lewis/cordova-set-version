@@ -46,17 +46,20 @@ cordovaSetVersion('./config.alt.xml', '2.4.9', 86)
 - `configPath` *(string)* - path to your `config.xml`
 - `version` *(string)* - version to be written
 - `buildNumber` *(number)* - build number to be written
+- `windows` *(string)* - windows version to be written
 
 ## CLI
 
 `cordova-set-version [-v|--version <version>]
                      [-b|--build-number <build-number>]
+                     [-w|--windows <version>]
                      [config.xml]`
 
 Options:
 
 - `-v`/`--version` - version to set
 - `-b`/`--build-number` - build number to set
+- `-w`/`--windows` - windows version to set
 - `--help` - display help
 
 Examples
@@ -66,4 +69,5 @@ $ cordova-set-version
 $ cordova-set-version -v 2.4.9
 $ cordova-set-version -b 86
 $ cordova-set-version -v 2.4.9 -b 86
+$ cordova-set-version -v 2.4.9 -b 86 -w 1.2.4.9
 ```
